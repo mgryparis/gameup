@@ -2,13 +2,13 @@ package gameup.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,12 +30,16 @@ public class Human {
 	@EqualsAndHashCode.Exclude
 	private String humanNote;
 
-	@EqualsAndHashCode.Exclude
-	@OneToOne(mappedBy = "gamerId")		//  Owned-side o2o
-	private Gamer humansGamerIdentity;
-
+	//=====>>  human|o2m|gamer, human owns gamer  //  human-side (ownING-side)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = false)
-	private Set<GLocation> humansGLocations = new HashSet<>();
+	@OneToMany(mappedBy = "humanIdentity",
+			cascade = CascadeType.PERSIST, orphanRemoval = false)
+	private Set<Gamer> gamerIdentities = new HashSet<>();;
+
+	//=====>>  human|o2m|location, human owns location  //  human-side (ownING-side)
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	@OneToMany(mappedBy = "humanPoc", cascade = CascadeType.PERSIST, orphanRemoval = false)
+	private Set<Location> locationsHosting = new HashSet<>();
 }
