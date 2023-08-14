@@ -23,13 +23,17 @@ public class Location {
 	@EqualsAndHashCode.Exclude
 	private String locationName;
 	@EqualsAndHashCode.Exclude
-	private String locationLevel;
+	private String locationStreetaddress;
 	@EqualsAndHashCode.Exclude
-	private String locationDate;
+	private String locationCity;
 	@EqualsAndHashCode.Exclude
-	private String locationStarttime;
+	private String locationState;
 	@EqualsAndHashCode.Exclude
-	private String locationEndtime;
+	private String locationZip;
+	@EqualsAndHashCode.Exclude
+	private String locationPhone;
+	@EqualsAndHashCode.Exclude
+	private String locationNote;
 	
 	//=====>>  human|o2m|location, human owns location  //  location-side (ownED-side)
 	@EqualsAndHashCode.Exclude
