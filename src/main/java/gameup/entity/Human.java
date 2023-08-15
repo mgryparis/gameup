@@ -19,9 +19,9 @@ public class Human {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long humanId;
 	@EqualsAndHashCode.Exclude
-	private String humanFirstName;
+	private String humanFirstname;
 	@EqualsAndHashCode.Exclude
-	private String humanLastName;
+	private String humanLastname;
 	@EqualsAndHashCode.Exclude
 	private String humanEmail;
 	@EqualsAndHashCode.Exclude

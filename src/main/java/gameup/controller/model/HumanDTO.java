@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HumanDTO {
 	private Long humanId;
-	private String humanFirstName;
-	private String humanLastName;
+	private String humanFirstname;
+	private String humanLastname;
 	private String humanEmail;
 	private String humanPhone;
 	private String humanNote;
@@ -24,8 +24,8 @@ public class HumanDTO {
 	//  Constructor that generates a HumanDTO instance from a Human Entity instance
 	public HumanDTO(Human human) {
 		this.humanId 			= human.getHumanId();
-		this.humanFirstName 	= human.getHumanFirstName();
-		this.humanLastName 		= human.getHumanLastName();
+		this.humanFirstname 	= human.getHumanFirstname();
+		this.humanLastname 		= human.getHumanLastname();
 		this.humanEmail 		= human.getHumanEmail();
 		this.humanPhone 		= human.getHumanPhone();
 		this.humanNote 			= human.getHumanNote();
@@ -38,8 +38,8 @@ public class HumanDTO {
 	public Human toHuman()	{
 		Human human = new Human();
 		human.setHumanId(humanId);
-		human.setHumanFirstName(humanFirstName);
-		human.setHumanLastName(humanLastName);
+		human.setHumanFirstname(humanFirstname);
+		human.setHumanLastname(humanLastname);
 		human.setHumanEmail(humanEmail);
 		human.setHumanPhone(humanPhone);
 		human.setHumanNote(humanNote);
