@@ -39,7 +39,8 @@ public class LocationDTO {
 		for(Gamer gamer : location.getGamersHosting())	{
 			this.gamersHosting.add(new GamerDTO(gamer));				}
 		for(Event event : location.getEventsScheduledAt())	{
-					this.eventsScheduledAt.add(new EventDTO(event));	}	}
+					this.eventsScheduledAt.add(new EventDTO(event));	}	
+		}
 
 	//  Method on LocationDTO that returns the corresponding Location Entity instance
 	public Location toLocation() 	{

@@ -24,7 +24,8 @@ public class GameDTO {
 		for(Gamer gamer : game.getGamersInterestedIn())	{
 			this.gamersInterestedIn.add(new GamerDTO(gamer));		}
 		for(Event event : game.getEventsPlayingAt())	{
-			this.eventsPlayingAt.add(new EventDTO(event));			}	}
+			this.eventsPlayingAt.add(new EventDTO(event));			}	
+		}
 
 	//  Method on GameDTO that returns the corresponding Game Entity instance
 	public Game toGame()	{

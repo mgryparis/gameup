@@ -34,35 +34,24 @@ public class GameupService {
 	public List<EventDTO> retrieveAllEvents()	{
 		List<Event> eventList = eventDao.findAll();
 		List<EventDTO> eventDTOList = new LinkedList<>();
-		for(Event ev : eventList)	{
-			EventDTO evDTO = new EventDTO();
-			evDTO = retrieveEventById(ev.getEventId());			
-			eventDTOList.add(evDTO);										}
-		return eventDTOList;												}
+		for (Event ev : eventList)	{
+			ev.getGamersRegisteredFor().clear();
+			ev.getGamesIncludedIn().clear();
+			ev.getLocationsScheduledAt().clear();
+			EventDTO eventDTO = new EventDTO(ev);
+			eventDTOList.add(eventDTO);									}
+		return eventDTOList;											}
 	
 	@Transactional(readOnly = true)
 	public EventDTO retrieveEventById(Long eventId) {
 		System.out.println(">>>>>    You have reached retrieveEventById()");
 		Event event = findEventById(eventId);
-		Set<Gamer> gamerSet = event.getGamersRegisteredFor();
-		System.out.println(">>>>>    gamerSet = " + gamerSet);
-		Set<Gamer> scrubbedGamerSet = new HashSet<>();
-			for(Gamer gr : gamerSet)	{
-				Gamer scrubbedGamer = new Gamer();
-				scrubbedGamer = retrieveGamerById(gr.getGamerId());
-				System.out.println(">>>>>    scrubbedGamer = " + scrubbedGamer);
-				scrubbedGamerSet.add(scrubbedGamer);						}
-		System.out.println(">>>>>    scrubbedGamerSet = " + scrubbedGamerSet);
-		event.setGamersRegisteredFor(scrubbedGamerSet);
+		System.out.println(">>>>>    event = " + event);
+		event.getGamersRegisteredFor().clear();
 		event.getGamesIncludedIn().clear();
 		event.getLocationsScheduledAt().clear();
-		return new EventDTO(event);											}
-
-	private Gamer retrieveGamerById(Long gamerId) {
-		System.out.println(">>>>>    You have reached findGamerByID()");
-		return gamerDao.findById(gamerId).orElseThrow(
-				() -> new NoSuchElementException(
-				"[ Location with ID = "	+ gamerId + " was not found ]"));	}
+		EventDTO eventDTO = new EventDTO(event);
+		return eventDTO;															}
 
 	private Event findEventById(Long eventId) {
 		System.out.println(">>>>>    You have reached findEventByID()");
