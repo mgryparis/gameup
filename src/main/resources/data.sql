@@ -13,6 +13,12 @@ INSERT INTO game (game_name, game_url, game_note)
 values ('Dungeons & Dragons', 'http://welcome.dnd.com', 'Fun for all ages!');
 INSERT INTO game (game_name, game_url, game_note)
 values ('Warhammer 40k', 'http://welcome.wh40k.com', 'Not for the faint of heart...');
+INSERT INTO game (game_name, game_url, game_note)
+values ('Monopoly', 'http://ilovemonopoly.com', 'The One and Only');
+INSERT INTO game (game_name, game_url, game_note)
+values ('Sorry', 'http://youwillbesorry.com', 'simple & brainless');
+INSERT INTO game (game_name, game_url, game_note)
+values ('Candyland', 'http://candylandsweetness.com', 'Simplicity itself');
 
 INSERT INTO event (event_name, event_level, event_date, event_starttime, event_endtime)
 values ('GameShop Party', 'All levels', 'Sat Sep 24th, 2025', '1pm ET', '6pm ET');
@@ -41,6 +47,9 @@ INSERT INTO gamer_location (gamer_id, location_id) values (2,2);
 
 INSERT INTO event_game (event_id, game_id) values (1,1);
 INSERT INTO event_game (event_id, game_id) values (1,2);
+INSERT INTO event_game (event_id, game_id) values (1,3);
+INSERT INTO event_game (event_id, game_id) values (1,4);
+INSERT INTO event_game (event_id, game_id) values (1,5);
 INSERT INTO event_game (event_id, game_id) values (2,1);
 INSERT INTO event_game (event_id, game_id) values (2,2);
 

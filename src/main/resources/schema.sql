@@ -1,3 +1,4 @@
+use gameup;
 DROP TABLE IF EXISTS event_location;
 DROP TABLE IF EXISTS event_game;
 DROP TABLE IF EXISTS gamer_location;
@@ -10,7 +11,7 @@ DROP TABLE IF EXISTS gamer;
 DROP TABLE IF EXISTS human;
 
 CREATE TABLE human (
-	human_id int NOT NULL AUTO_INCREMENT,
+	human_id bigint NOT NULL AUTO_INCREMENT,
 	human_firstname varchar(128) NOT NULL,
 	human_lastname  varchar(128) NOT NULL,
 	human_email varchar(256), 
@@ -20,8 +21,8 @@ CREATE TABLE human (
 );
 
 CREATE TABLE gamer (
-	gamer_id int NOT NULL AUTO_INCREMENT,
-	human_id int NOT NULL,
+	gamer_id bigint NOT NULL AUTO_INCREMENT,
+	human_id bigint NOT NULL,
 	gamer_handle varchar(128) NOT NULL,
 	gamer_email varchar(256),
 	gamer_discord varchar(128), 
@@ -32,7 +33,7 @@ CREATE TABLE gamer (
 );
 
 CREATE TABLE game (
-	game_id int NOT NULL AUTO_INCREMENT,
+	game_id bigint NOT NULL AUTO_INCREMENT,
 	game_name varchar(128) NOT NULL,
 	game_url varchar(256), 
 	game_note varchar(1024),
@@ -40,7 +41,7 @@ CREATE TABLE game (
 );
 
 CREATE TABLE event (
-	event_id int NOT NULL AUTO_INCREMENT,
+	event_id bigint NOT NULL AUTO_INCREMENT,
 	event_name varchar(128) NOT NULL,
 	event_level varchar(30) NOT NULL,
 	event_date varchar(40), 
@@ -50,8 +51,8 @@ CREATE TABLE event (
 );
 
 CREATE TABLE location (
-	location_id int NOT NULL AUTO_INCREMENT,
-	human_id int NOT NULL,
+	location_id bigint NOT NULL AUTO_INCREMENT,
+	human_id bigint NOT NULL,
 	location_name varchar(128) NOT NULL,
 	location_streetaddress varchar(128) NOT NULL,
 	location_city varchar(60),
@@ -63,37 +64,37 @@ CREATE TABLE location (
 	FOREIGN KEY (human_id) REFERENCES human (human_id)
 );
 
-CREATE TABLE gamer_game (
-	gamer_id int NOT NULL,
-	game_id int NOT NULL,
-	FOREIGN KEY (gamer_id) REFERENCES gamer (gamer_id),
-	FOREIGN KEY (game_id) REFERENCES game (game_id)
-);
+ CREATE TABLE gamer_game (
+ 	gamer_id bigint NOT NULL,
+ 	game_id bigint NOT NULL,
+ 	FOREIGN KEY (gamer_id) REFERENCES gamer (gamer_id),
+ 	FOREIGN KEY (game_id) REFERENCES game (game_id)
+ );
 
 CREATE TABLE gamer_event (
-	gamer_id int NOT NULL,
-	event_id int NOT NULL,
+	gamer_id bigint NOT NULL,
+	event_id bigint NOT NULL,
 	FOREIGN KEY (gamer_id) REFERENCES gamer (gamer_id),
 	FOREIGN KEY (event_id) REFERENCES event (event_id)
 );
 
 CREATE TABLE gamer_location (
-	gamer_id int NOT NULL,
-	location_id int NOT NULL,
+	gamer_id bigint NOT NULL,
+	location_id bigint NOT NULL,
 	FOREIGN KEY (gamer_id) REFERENCES gamer (gamer_id),
 	FOREIGN KEY (location_id) REFERENCES location (location_id)
 );
 
 CREATE TABLE event_game (
-	event_id int NOT NULL,
-	game_id int NOT NULL,
+	event_id bigint NOT NULL,
+	game_id bigint NOT NULL,
 	FOREIGN KEY (event_id) REFERENCES event (event_id),
 	FOREIGN KEY (game_id) REFERENCES game (game_id)
 );
 
 CREATE TABLE event_location (
-	event_id int NOT NULL,
-	location_id int NOT NULL,
+	event_id bigint NOT NULL,
+	location_id bigint NOT NULL,
 	FOREIGN KEY (event_id) REFERENCES event (event_id),
 	FOREIGN KEY (location_id) REFERENCES location (location_id)
 );

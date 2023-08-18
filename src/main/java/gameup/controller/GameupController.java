@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import gameup.controller.model.EventDTO;
+import gameup.controller.model.GameDTO;
+import gameup.controller.model.GamerDTO;
+import gameup.controller.model.EventDTOFull;
 import gameup.entity.Event;
 import gameup.service.GameupService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +26,9 @@ public class GameupController {
 	@Autowired
 	private GameupService gameupService;
 	
-	//  =====[  @GET Entities  ]=======================================================
-	//  @Get /<entity> returns a list of all entities without children
-	//  @Get /<entity>/{id} returns specified entity with all its children
+	//  %%%%%[  @GET Entities  ]%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	//  Event -----------------------------------------------------
 	
 	@GetMapping("/event")
 	@ResponseStatus(code = HttpStatus.OK)
@@ -35,20 +38,47 @@ public class GameupController {
 	
 	@GetMapping("/event/{eventId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public EventDTO retrieveEventById(@PathVariable Long eventId)	{
+	public EventDTOFull retrieveEventById(@PathVariable Long eventId)	{
 		System.out.println(">>>>>    You have made it to the @GetMapping!");
 		log.info("[ Retrieving Event with ID = {} ]", eventId);
 		return gameupService.retrieveEventById(eventId);		}
 	
+	// Game -----------------------------------------------------
+	
+	@GetMapping("/game")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<GameDTO> retrieveAllGames()	{
+		log.info("[ Retrieving all Games ]");
+		return gameupService.retrieveAllGames();		}
+	
+	@GetMapping("/game/{gameId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public GameDTO retrieveGameById(@PathVariable Long gameId)	{
+		log.info("[ Retrieving Game with ID = {} ]", gameId);
+		return gameupService.retrieveGameById(gameId);		}
+	
+	// Gamer -----------------------------------------------------
 
-//	@GetMapping("/game")
-//	@GetMapping("/game/{gameId}")
-//	@GetMapping("/gamer")
-//	@GetMapping("/gamer/{gamerId}")
+	@GetMapping("/gamer")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<GamerDTO> retrieveAllGamers()	{
+		log.info("[ Retrieving all Gamers ]");
+		return gameupService.retrieveAllGamers();		}
+	
+	@GetMapping("/gamer/{gamerId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public GamerDTO retrieveGamerById(@PathVariable Long gamerId)	{
+		log.info("[ Retrieving Gamer with ID = {} ]", gamerId);
+		return gameupService.retrieveGamerById(gamerId);		}
+
+	// Human -----------------------------------------------------
+	
+	// Location --------------------------------------------------
+
+	
+	
 //	@GetMapping("/human")
-//	@GetMapping("/human/{humanId}")
 //	@GetMapping("/location")
-//	@GetMapping("/location/{locationId}")
 
 	
 	//  =====[  @POST Entities  ]======================================================

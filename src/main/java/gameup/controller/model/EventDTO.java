@@ -30,13 +30,13 @@ public class EventDTO {
 		this.eventLevel 		= event.getEventLevel();
 		this.eventDate 			= event.getEventDate();
 		this.eventStarttime 	= event.getEventStarttime();
-		this.eventEndtime 		= event.getEventEndtime();
-		for(Gamer gamer : event.getGamersRegisteredFor())	{
-			this.gamersRegisteredFor.add(new GamerDTO(gamer));			}
-		for(Game game : event.getGamesIncludedIn())	{
-			this.gamesIncludedIn.add(new GameDTO(game));				}
-		for(Location location : event.getLocationsScheduledAt())	{
-			this.locationsScheduledAt.add(new LocationDTO(location));	}	}
+		this.eventEndtime 		= event.getEventEndtime();			}
+//		for(Gamer gamer : event.getGamersRegisteredFor())	{
+//			this.gamersRegisteredFor.add(new GamerDTO(gamer));			}
+//		for(Game game : event.getGamesIncludedIn())	{
+//			this.gamesIncludedIn.add(new GameDTO(game));				}
+//		for(Location location : event.getLocationsScheduledAt())	{
+//			this.locationsScheduledAt.add(new LocationDTO(location));	}	}
 	
 	//  Method on EventDTO that returns the corresponding Event Entity instance
 	public Event toEvent()	{
@@ -47,12 +47,12 @@ public class EventDTO {
 		event.setEventDate(eventDate);
 		event.setEventStarttime(eventStarttime);
 		event.setEventEndtime(eventEndtime);
-		for(GamerDTO gamerDTO : gamersRegisteredFor)	{
-			event.getGamersRegisteredFor().add(gamerDTO.toGamer());			}
-		for(GameDTO gameDTO : gamesIncludedIn)	{
-			event.getGamesIncludedIn().add(gameDTO.toGame());				}
-		for(LocationDTO locationDTO : locationsScheduledAt)	{
-			event.getLocationsScheduledAt().add(locationDTO.toLocation());	}	
+//		for(GamerDTO gamerDTO : gamersRegisteredFor)	{
+//			event.getGamersRegisteredFor().add(gamerDTO.toGamer());			}
+//		for(GameDTO gameDTO : gamesIncludedIn)	{
+//			event.getGamesIncludedIn().add(gameDTO.toGame());				}
+//		for(LocationDTO locationDTO : locationsScheduledAt)	{
+//			event.getLocationsScheduledAt().add(locationDTO.toLocation());	}	
 		return event;														}
 	
 }	//  End of EventDTO Class

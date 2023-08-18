@@ -32,14 +32,14 @@ public class GamerDTO {
 		this.gamerEmail 	= gamer.getGamerEmail();
 		this.gamerDiscord 	= gamer.getGamerDiscord();
 		this.gamerUrl 		= gamer.getGamerUrl();
-		this.gamerNote 		= gamer.getGamerNote();
-		this.humanIdentity 	= gamer.getHumanIdentity();
-		for(Game game : gamer.getGamesInterestedIn())	{
-			this.gamesInterestedIn.add(new GameDTO(game));				}	
-		for(Event event : gamer.getEventsRegisteredFor())	{
-			this.eventsRegisteredFor.add(new EventDTO(event));			}
-		for(Location location : gamer.getLocationsHostingFor())	{
-			this.locationsHostingFor.add(new LocationDTO(location));	}	}
+		this.gamerNote 		= gamer.getGamerNote();				}
+//		this.humanIdentity 	= gamer.getHumanIdentity();					}
+//		for(Game game : gamer.getGamesInterestedIn())	{
+//			this.gamesInterestedIn.add(new GameDTO(game));				}	
+//		for(Event event : gamer.getEventsRegisteredFor())	{
+//			this.eventsRegisteredFor.add(new EventDTO(event));			}
+//		for(Location location : gamer.getLocationsHostingFor())	{
+//			this.locationsHostingFor.add(new LocationDTO(location));	}	}
 	
 	//  Method on GamerDTO that returns the corresponding Gamer Entity instance
 	public Gamer toGamer()	{
@@ -50,13 +50,13 @@ public class GamerDTO {
 		gamer.setGamerDiscord(gamerDiscord);
 		gamer.setGamerUrl(gamerUrl);
 		gamer.setGamerNote(gamerNote);
-		gamer.setHumanIdentity(humanIdentity);
-		for(GameDTO gameDTO : gamesInterestedIn)	{
-			gamer.getGamesInterestedIn().add(gameDTO.toGame());				}
-		for(EventDTO eventDTO : eventsRegisteredFor)	{
-			gamer.getEventsRegisteredFor().add(eventDTO.toEvent());			}
-		for(LocationDTO locationDTO : locationsHostingFor)	{
-			gamer.getLocationsHostingFor().add(locationDTO.toLocation());	}	
+//		gamer.setHumanIdentity(humanIdentity);
+//		for(GameDTO gameDTO : gamesInterestedIn)	{
+//			gamer.getGamesInterestedIn().add(gameDTO.toGame());				}
+//		for(EventDTO eventDTO : eventsRegisteredFor)	{
+//			gamer.getEventsRegisteredFor().add(eventDTO.toEvent());			}
+//		for(LocationDTO locationDTO : locationsHostingFor)	{
+//			gamer.getLocationsHostingFor().add(locationDTO.toLocation());	}	
 		return gamer;														}
 	
 }	//  End of GamerDTO Class
