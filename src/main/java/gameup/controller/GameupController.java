@@ -13,7 +13,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import gameup.controller.model.EventDTO;
 import gameup.controller.model.GameDTO;
+import gameup.controller.model.GameDTOFull;
 import gameup.controller.model.GamerDTO;
+import gameup.controller.model.GamerDTOFull;
+import gameup.controller.model.HumanDTO;
+import gameup.controller.model.HumanDTOFull;
+import gameup.controller.model.LocationDTO;
+import gameup.controller.model.LocationDTOFull;
 import gameup.controller.model.EventDTOFull;
 import gameup.entity.Event;
 import gameup.service.GameupService;
@@ -53,7 +59,7 @@ public class GameupController {
 	
 	@GetMapping("/game/{gameId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public GameDTO retrieveGameById(@PathVariable Long gameId)	{
+	public GameDTOFull retrieveGameById(@PathVariable Long gameId)	{
 		log.info("[ Retrieving Game with ID = {} ]", gameId);
 		return gameupService.retrieveGameById(gameId);		}
 	
@@ -67,19 +73,39 @@ public class GameupController {
 	
 	@GetMapping("/gamer/{gamerId}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public GamerDTO retrieveGamerById(@PathVariable Long gamerId)	{
+	public GamerDTOFull retrieveGamerById(@PathVariable Long gamerId)	{
 		log.info("[ Retrieving Gamer with ID = {} ]", gamerId);
 		return gameupService.retrieveGamerById(gamerId);		}
 
-	// Human -----------------------------------------------------
-	
 	// Location --------------------------------------------------
 
+	@GetMapping("/location")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<LocationDTO> retrieveAllLocations()	{
+		log.info("[ Retrieving all Locations ]");
+		return gameupService.retrieveAllLocations();		}
+	
+	@GetMapping("/location/{locationId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public LocationDTOFull retrieveLocationById(@PathVariable Long locationId)	{
+		log.info("[ Retrieving Location with ID = {} ]", locationId);
+		return gameupService.retrieveLocationById(locationId);		}
+	
+	// Human -----------------------------------------------------
+	
+	@GetMapping("/human")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<HumanDTO> retrieveAllHumans()	{
+		log.info("[ Retrieving all Humans ]");
+		return gameupService.retrieveAllHumans();		}
+	
+	@GetMapping("/human/{humanId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public HumanDTOFull retrieveHumanById(@PathVariable Long humanId)	{
+		log.info("[ Retrieving Human with ID = {} ]", humanId);
+		return gameupService.retrieveHumanById(humanId);		}
 	
 	
-//	@GetMapping("/human")
-//	@GetMapping("/location")
-
 	
 	//  =====[  @POST Entities  ]======================================================
 	//  =====[  @POST Relationships  ]=================================================

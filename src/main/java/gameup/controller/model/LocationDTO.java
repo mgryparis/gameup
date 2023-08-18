@@ -1,10 +1,5 @@
 package gameup.controller.model;
 
-import java.util.HashSet;
-import java.util.Set;
-import gameup.entity.Event;
-import gameup.entity.Gamer;
-import gameup.entity.Human;
 import gameup.entity.Location;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +16,6 @@ public class LocationDTO {
 	private String locationZip;
 	private String locationPhone;
 	private String locationNote;
-	private Human humanPoc;		
-	private Set<GamerDTO> gamersHosting = new HashSet<>();	
-	private Set<EventDTO> eventsScheduledAt = new HashSet<>();
 	
 	//  Constructor that generates a LocationDTO instance from a Location Entity instance
 	public LocationDTO(Location location)	{
@@ -34,13 +26,7 @@ public class LocationDTO {
 		this.locationState 			= location.getLocationState();
 		this.locationZip 			= location.getLocationZip();
 		this.locationPhone 			= location.getLocationPhone();
-		this.locationNote 			= location.getLocationNote();
-		this.humanPoc 				= location.getHumanPoc();
-		for(Gamer gamer : location.getGamersHosting())	{
-			this.gamersHosting.add(new GamerDTO(gamer));				}
-		for(Event event : location.getEventsScheduledAt())	{
-					this.eventsScheduledAt.add(new EventDTO(event));	}	
-		}
+		this.locationNote 			= location.getLocationNote();			}
 
 	//  Method on LocationDTO that returns the corresponding Location Entity instance
 	public Location toLocation() 	{
@@ -53,11 +39,6 @@ public class LocationDTO {
 		location.setLocationZip(locationZip);
 		location.setLocationPhone(locationPhone);
 		location.setLocationNote(locationNote);
-		location.setHumanPoc(humanPoc);
-		for(GamerDTO gamerDTO : gamersHosting)	{
-			location.getGamersHosting().add(gamerDTO.toGamer());		}
-		for(EventDTO eventDTO : eventsScheduledAt)	{
-			location.getEventsScheduledAt().add(eventDTO.toEvent());	}
-		return location;												}
+		return location;													}
 
 }  // End of LocationDTO Class

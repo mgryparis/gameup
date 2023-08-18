@@ -2,9 +2,8 @@ package gameup.controller.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import gameup.entity.Gamer;
+
 import gameup.entity.Human;
-import gameup.entity.Location;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,11 +27,7 @@ public class HumanDTO {
 		this.humanLastname 		= human.getHumanLastname();
 		this.humanEmail 		= human.getHumanEmail();
 		this.humanPhone 		= human.getHumanPhone();
-		this.humanNote 			= human.getHumanNote();
-		for(Gamer gamer : human.getGamerIdentities())	{
-			this.gamerIdentities.add(new GamerDTO(gamer));			}
-		for(Location location : human.getLocationsHosting())	{
-			this.locationsHosting.add(new LocationDTO(location));	}	}
+		this.humanNote 			= human.getHumanNote();			}
 	
 	//  Method on HumanDTO that returns the corresponding Location Entity instance
 	public Human toHuman()	{
@@ -43,10 +38,6 @@ public class HumanDTO {
 		human.setHumanEmail(humanEmail);
 		human.setHumanPhone(humanPhone);
 		human.setHumanNote(humanNote);
-		for(GamerDTO gamerDTO : gamerIdentities) {
-			human.getGamerIdentities().add(gamerDTO.toGamer());		}
-		for(LocationDTO locationDTO : locationsHosting) {
-			human.getLocationsHosting().add(locationDTO.toLocation());		}	
 		return human;}
 
 }	//  End of HumanDTO Class
