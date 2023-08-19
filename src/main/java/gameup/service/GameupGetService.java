@@ -185,9 +185,10 @@ public class GameupGetService {
 		
 		//  Get Human Identity
 		Human humanIdentity = gamer.getHumanIdentity();
-		humanIdentity.getGamerIdentities().clear();
-		humanIdentity.getLocationsHosting().clear();
-		
+		if(humanIdentity != null)	{
+			humanIdentity.getGamerIdentities().clear();
+			humanIdentity.getLocationsHosting().clear();	}
+	
 		//  get gamesInterestedIn
 		Query qGames = em.createNativeQuery("select gamer_game.game_id from gamer_game where gamer_game.gamer_id = ?");
 		qGames.setParameter(1, gamerId);
@@ -257,8 +258,9 @@ public class GameupGetService {
 		//  Get Human POC
 //		Human humanPoc = new Human();	//  placeholder
 		Human humanPoc = location.getHumanPoc();
-		humanPoc.getGamerIdentities().clear();
-		humanPoc.getLocationsHosting().clear();
+		if(humanPoc != null)	{
+			humanPoc.getGamerIdentities().clear();
+			humanPoc.getLocationsHosting().clear();	}
 
 		//  get eventsScheduledAt
 		Query qEvents = em.createNativeQuery("select event_location.event_id from event_location where event_location.location_id = ?");

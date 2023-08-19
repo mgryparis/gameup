@@ -37,7 +37,7 @@ public class Gamer {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToOne
-	@JoinColumn(name = "human_id", nullable = false)
+	@JoinColumn(name = "human_id", nullable = true)
 	private Human humanIdentity;
 
 	//=====>>  gamer|m2m|game, gamer owns game  //  gamer-side (ownING-side)

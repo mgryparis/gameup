@@ -1,6 +1,7 @@
 package gameup.controller.model;
 
 import gameup.entity.Gamer;
+import gameup.entity.Human;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,8 @@ public class GamerDTO {
 	private String gamerDiscord;
 	private String gamerUrl;
 	private String gamerNote;
+//	private Human humanIdentity;
+
 	
 	//  Constructor that generates a GamerDTO instance from a Gamer Entity instance
 	public GamerDTO(Gamer gamer) {

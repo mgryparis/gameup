@@ -39,7 +39,7 @@ public class Location {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToOne
-	@JoinColumn(name = "human_id", nullable = false)
+	@JoinColumn(name = "human_id", nullable = true)
 	private Human humanPoc;		
 	
 	//=====>>  gamer|m2m|location, gamer owns event  //  location-side (ownED-side)

@@ -22,7 +22,7 @@ CREATE TABLE human (
 
 CREATE TABLE gamer (
 	gamer_id bigint NOT NULL AUTO_INCREMENT,
-	human_id bigint NOT NULL,
+	human_id bigint,
 	gamer_handle varchar(128) NOT NULL,
 	gamer_email varchar(256),
 	gamer_discord varchar(128), 
@@ -52,7 +52,7 @@ CREATE TABLE event (
 
 CREATE TABLE location (
 	location_id bigint NOT NULL AUTO_INCREMENT,
-	human_id bigint NOT NULL,
+	human_id bigint,
 	location_name varchar(128) NOT NULL,
 	location_streetaddress varchar(128) NOT NULL,
 	location_city varchar(60),

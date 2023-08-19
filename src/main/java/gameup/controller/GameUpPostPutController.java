@@ -35,7 +35,7 @@ public class GameUpPostPutController {
 	@PutMapping("/event/{eventId}")
 	public EventDTO updateEvent(@PathVariable Long eventId, @RequestBody EventDTO eventDTO) {
 		eventDTO.setEventId(eventId);
-		log.info("Updating location {}", eventDTO);
+		log.info("Updating Event {}", eventDTO);
 		return gameupPostPutService.saveEvent(eventDTO);						}
 	
 	//  @POST/@PUT Games ---------------------------------------------------------
@@ -57,7 +57,7 @@ public class GameUpPostPutController {
 	@PostMapping("/gamer")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public GamerDTO createGamer(@RequestBody GamerDTO gamerDTO)	{
-		log.info("Creating Game {}", gamerDTO);
+		log.info("Creating Gamer {}", gamerDTO);
 		return gameupPostPutService.saveGamer(gamerDTO);				}
 	
 	@PutMapping("/gamer/{gamerId}")
