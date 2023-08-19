@@ -32,7 +32,7 @@ import gameup.entity.Human;
 import gameup.entity.Location;
 
 @Service
-public class GameupService {
+public class GameupGetService {
 	@Autowired private EventDao eventDao;
 	@Autowired private GameDao gameDao;
 	@Autowired private GamerDao gamerDao;
@@ -344,4 +344,4 @@ public class GameupService {
 				() -> new NoSuchElementException(
 				"[ Human with ID = " + humanId + " was not found ]"));	}
 
-}	//  End of GameupService Class
+}	//  End of GameupGetService Class

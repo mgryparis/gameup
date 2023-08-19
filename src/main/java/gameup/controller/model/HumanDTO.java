@@ -1,8 +1,5 @@
 package gameup.controller.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import gameup.entity.Human;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,6 @@ public class HumanDTO {
 	private String humanEmail;
 	private String humanPhone;
 	private String humanNote;
-	private Set<GamerDTO> gamerIdentities = new HashSet<>();
-	private Set<LocationDTO> locationsHosting = new HashSet<>();
 	
 	//  Constructor that generates a HumanDTO instance from a Human Entity instance
 	public HumanDTO(Human human) {
