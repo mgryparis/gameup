@@ -1,11 +1,15 @@
 package gameup.service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gameup.controller.model.DeleteEventDTO;
+import gameup.controller.model.DeleteGamer2EventDTO;
 import gameup.controller.model.Event2GameDTO;
 import gameup.controller.model.Event2LocationDTO;
 import gameup.controller.model.EventDTO;
@@ -46,48 +50,118 @@ public class GameupDeleteService {
 //  ----- [  Delete Events  ]---------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------	
 
+	@Transactional(readOnly = false)
 	public DeleteEventDTO deleteEvent(Long eventId) {
 		DeleteEventDTO deleteEventDTO = new DeleteEventDTO();
 
-		//	Check if the Event exists, Build eventCheckResult string & Abort|Continue
+		//	Check if the Event exists, Build Result strings & Abort||Continue
 		if(!checkIfEventIdExists(eventId))	{	
 			deleteEventDTO.setEventCheckResult("Event " + eventId + " does not exist");
+			deleteEventDTO.setGoNoGoResult("No update attempted");
 			return deleteEventDTO;															}
 		deleteEventDTO.setEventCheckResult("Event " + eventId + "  exists");
+		deleteEventDTO.setGoNoGoResult("Executing Operation");
 		
-		//	Get all the gamersRegisteredFor & build the gamersRegisteredFor_String
-
+		//	Build the gamersRegisteredFor_String
+		Query qGamersRegisteredFor = em.createNativeQuery(
+				"select gamer_event.gamer_id from gamer_event where gamer_event.event_id = ?");
+		qGamersRegisteredFor.setParameter(1, eventId);
+		@SuppressWarnings("unchecked")
+		List<Long> gamersRegisteredForList = qGamersRegisteredFor.getResultList();
+		deleteEventDTO.setGamersRegisteredFor_String(gamersRegisteredForList.toString());
 		
-		//	Get all the gamesIncludedIn & build the gamesIncludedIn_String
-		//	Get all the locationsScheduledAt & build the locationsScheduledAt_String
+		//	Build the gamesIncludedIn_String
+		Query qGamesIncludedIn = em.createNativeQuery(
+				"select event_game.game_id from event_game where event_game.event_id = ?");
+		qGamesIncludedIn.setParameter(1, eventId);
+		@SuppressWarnings("unchecked")
+		List<Long> gamesIncludedInList = qGamesIncludedIn.getResultList();
+		deleteEventDTO.setGamesIncludedIn_String(gamesIncludedInList.toString());
+		
+		//	Build the locationsScheduledAt_String
+		Query qLocationsScheduledAt = em.createNativeQuery(
+				"select event_location.location_id from event_location where event_location.event_id = ?");
+		qLocationsScheduledAt.setParameter(1, eventId);
+		@SuppressWarnings("unchecked")
+		List<Long> locationsScheduledAtList = qLocationsScheduledAt.getResultList();
+		deleteEventDTO.setLocationsScheduledAt_String(locationsScheduledAtList.toString());
+		
 		//	Delete the Event and its Relationships from the m2m Join tables
-		return null;
-	}
+		Integer delRowCount;
+		Query qDeleteGamersRegisteredFor = em.createNativeQuery(
+				"delete from gamer_event where gamer_event.event_id = ?");
+		qDeleteGamersRegisteredFor.setParameter(1, eventId);
+		delRowCount = qDeleteGamersRegisteredFor.executeUpdate();
+		deleteEventDTO.setGamersRegisteredFor_RowsDeleted_String(delRowCount.toString());
+		
+		Query qDeleteGamesIncludedIn = em.createNativeQuery(
+				"delete from event_game where event_game.event_id = ?");
+		qDeleteGamesIncludedIn.setParameter(1, eventId);
+		delRowCount = qDeleteGamesIncludedIn.executeUpdate();
+		deleteEventDTO.setGamesIncludedIn_RowsDeleted_String(delRowCount.toString());
+
+		Query qDeleteLocationsScheduledAt = em.createNativeQuery(
+				"delete from event_location where event_location.event_id = ?");
+		qDeleteLocationsScheduledAt.setParameter(1, eventId);
+		delRowCount = qDeleteLocationsScheduledAt.executeUpdate();
+		deleteEventDTO.setGamesIncludedIn_RowsDeleted_String(delRowCount.toString());
+
+		Query qDeleteEvent = em.createNativeQuery(
+				"delete from event where event.event_id = ?");
+		qDeleteEvent.setParameter(1, eventId);
+		delRowCount = qDeleteEvent.executeUpdate();
+		deleteEventDTO.setEvent_RowsDeleted_String(delRowCount.toString());
+		
+		return deleteEventDTO;															}
+	
+	@Transactional(readOnly = false)
+	public DeleteGamer2EventDTO deleteGamer2Event(DeleteGamer2EventDTO deleteGamer2EventDTO) {
+		
+		//	Remove the Gamer from the Event
+		Integer delRowCount;
+		Long evId = deleteGamer2EventDTO.getEventId();
+		Long grId = deleteGamer2EventDTO.getGamerId();
+		Query qDeleteGamer2Event = em.createNativeQuery(
+				"delete from gamer_event where gamer_event.gamer_id = ? and gamer_event.event_id = ?");
+		qDeleteGamer2Event.setParameter(1, grId);
+		qDeleteGamer2Event.setParameter(2, evId);
+		delRowCount = qDeleteGamer2Event.executeUpdate();
+		deleteGamer2EventDTO.setRowsDeleted_string(delRowCount.toString());
+
+		//	If there are no more Gamers left in the Event, Cancel it (delete it)
+		Query qAnyGamersLeftInEvent = em.createNativeQuery(
+				"select count(gamer_event.event_id) from gamer_event where gamer_event.event_id = ?");
+		qAnyGamersLeftInEvent.setParameter(1, evId);
+		@SuppressWarnings("unchecked")
+		List<Long> resultList = qAnyGamersLeftInEvent.getResultList();
+		if(resultList.get(0)==0)	{	
+			deleteGamer2EventDTO.setOpResult("No Gamers Left > Deleting Event");
+			deleteEvent(evId);														}
+		
+		return deleteGamer2EventDTO;												}
 
 	
-	
+//  ------------------------------------------------------------------------------------------
+//  ----- [  Delete Games  ]----------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------	
+
 	
 //  ------------------------------------------------------------------------------------------
-//  ----- [  Post/Put Games  ]----------------------------------------------------------------
+//  ----- [  Delete Gamers  ]---------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------	
+
+	
+//  ------------------------------------------------------------------------------------------
+//  ----- [  Delete Locations  ]------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------
+
+	
+//  ------------------------------------------------------------------------------------------
+//  ----- [  Delete Humans  ]---------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------	
 
 	
 	
-//  ------------------------------------------------------------------------------------------
-//  ----- [  Post/Put Gamers  ]---------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------	
-	
-	
-	
-//  ------------------------------------------------------------------------------------------
-//  ----- [  Post/Put Locations  ]------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------
-
-//  ------------------------------------------------------------------------------------------
-//  ----- [  Post/Put Humans  ]---------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------	
-
-
 //  ------------------------------------------------------------------------------------------
 //  ----- [  Re-used ID Check Methods ]-------------------------------------------------------
 //  ------------------------------------------------------------------------------------------	
@@ -132,6 +206,7 @@ public class GameupDeleteService {
 		List<Long> resultList = qHumanIdExists.getResultList();
 		if(resultList.get(0)>0)	{	return true;						}			
 		return false;													}
+
 
 
 	

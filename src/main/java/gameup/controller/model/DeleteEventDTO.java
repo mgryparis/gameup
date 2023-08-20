@@ -1,6 +1,5 @@
 package gameup.controller.model;
 
-import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +9,14 @@ import lombok.NoArgsConstructor;
 public class DeleteEventDTO {
 	private Long eventId;
 	private String eventCheckResult;
-	private List<String> gamersRegisteredFor_String;
-	private List<String> gamesIncludedIn_String;
-	private List<String> locationsScheduledAt_String;
+	private String gamersRegisteredFor_String;
+	private String gamesIncludedIn_String;
+	private String locationsScheduledAt_String;
 	private String goNoGoResult;
+	private String gamersRegisteredFor_RowsDeleted_String;
+	private String gamesIncludedIn_RowsDeleted_String;
+	private String locationsScheduledAt_RowsDeleted_String;
+	private String event_RowsDeleted_String;
 	
 //  Constructor that generates a DeleteEventDTO from an Event ID
 	public DeleteEventDTO(Long eventId)	{

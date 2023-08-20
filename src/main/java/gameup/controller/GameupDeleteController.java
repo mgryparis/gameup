@@ -14,6 +14,7 @@ import gameup.service.GameupDeleteService;
 import gameup.service.GameupPostPutService;
 import lombok.extern.slf4j.Slf4j;
 import gameup.controller.model.DeleteEventDTO;
+import gameup.controller.model.DeleteGamer2EventDTO;
 import gameup.controller.model.Event2GameDTO;
 import gameup.controller.model.Event2LocationDTO;
 import gameup.controller.model.EventDTO;
@@ -34,18 +35,31 @@ public class GameupDeleteController {
 	@Autowired
 	private GameupDeleteService gameupDeleteService;
 	
-	//  @POST/@PUT Events --------------------------------------------------------
+	//  @Delete Events --------------------------------------------------------
+	
+	//  Delete an Event
 	@DeleteMapping("/event/{eventId}")
 	public DeleteEventDTO deleteEvent(@PathVariable Long eventId)	{
 		log.info("Deleting Event with ID = " + eventId);
 		return gameupDeleteService.deleteEvent(eventId);			}
 	
-	//  @POST/@PUT Games --------------------------------------------------------
+	//  Remove a Gamer from an Event, If no more Gamers left, Cancel the event
+	@DeleteMapping("/event/removeGamer")
+	public DeleteGamer2EventDTO removeGamerFromEvent(@RequestBody DeleteGamer2EventDTO deleteGamer2EventDTO)	{
+		log.info("Removing Gamer " + deleteGamer2EventDTO.getGamerId()
+		+ " from Event " + deleteGamer2EventDTO.getEventId());
+		return gameupDeleteService.deleteGamer2Event(deleteGamer2EventDTO);								}
+	
+	//  Remove a Game from an Event
+	
+	//  Remove a Location from an Event
+	
+	//  @Delete Games --------------------------------------------------------
 
-	//  @POST/@PUT Gamers --------------------------------------------------------
+	//  @Delete Gamers --------------------------------------------------------
 
-	//  @POST/@PUT Locations --------------------------------------------------------
+	//  @Delete Locations --------------------------------------------------------
 
-	//  @POST/@PUT Humans --------------------------------------------------------
-
+	//  @Delete Humans --------------------------------------------------------
+	
 }	//  End of GameUpDeleteController Class
