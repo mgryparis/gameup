@@ -292,7 +292,7 @@ public class GameupPostPutService {
 
 		//  1 - Check to see if Human/Location IDs exist and Set CheckResult strings accordingly
 		//	If one or both does NOT exist > Abort
-		boolean humanExists = checkIfGamerIdExists(hmId);
+		boolean humanExists = checkIfHumanIdExists(hmId);
 		boolean locationExists = checkIfLocationIdExists(lcId);
 		if(humanExists)	{	human2LocationDTO.setHumanCheckResult("Human " + hmId + " exists");	}
 		else	{	human2LocationDTO.setHumanCheckResult("Human " + hmId + " does not exist");	}
@@ -301,31 +301,15 @@ public class GameupPostPutService {
 		if(!humanExists || !locationExists) {
 			human2LocationDTO.setGoNoGoResult("Aborting operation");
 			return human2LocationDTO;													}
-				
-		//  2 - Check to see if the Human is already the POC for the Location
-		//	If so > No Update
-		Query qHumanAlreadyPocForLocation = em.createNativeQuery(
-				"select count(location.location_id) from location "
-				+ "where location.location_id = ? and location.human_id =?");
-		qHumanAlreadyPocForLocation.setParameter(1, lcId);
-		qHumanAlreadyPocForLocation.setParameter(2, hmId);
-		@SuppressWarnings("unchecked")
-		List<Long> resultList = qHumanAlreadyPocForLocation.getResultList();
-		if(resultList.get(0)>0)	{
-			human2LocationDTO.setGoNoGoResult("No update attempted:  Human is already the POC for location");
-			return human2LocationDTO;															}			
 		
-		//  3 -  If both exist, and the attempt to insert the row
-		if(human2LocationDTO && locationExists) {
-			human2LocationDTO.setGoNoGoResult("Executing operation");
-			Query qInsertRowInGamer2LocationTable = em.createNativeQuery(
-					"insert into gamer_location (gamer_id, location_id) values (?,?)");
-			qInsertRowInGamer2LocationTable.setParameter(1, grId);
-			qInsertRowInGamer2LocationTable.setParameter(2, lcId);
-			qInsertRowInGamer2LocationTable.executeUpdate();									}
-		//  Else abort the operation
-		else	{	gamer2LocationDTO.setGoNoGoResult("Aborting operation");					}
-		return gamer2LocationDTO;																}
+		//  3 -  If both exist, set the Human as the POC - This will overwrite any previous POC
+		human2LocationDTO.setGoNoGoResult("Executing operation");
+		Query qInsertRowInGamer2LocationTable = em.createNativeQuery(
+				"update location set human_id=? where location_id = ?");
+		qInsertRowInGamer2LocationTable.setParameter(1, hmId);
+		qInsertRowInGamer2LocationTable.setParameter(2, lcId);
+		qInsertRowInGamer2LocationTable.executeUpdate();
+		return human2LocationDTO;																}
 	
 	//	Save a new Human-to-Gamer relationship ("identity of") to the gamer table (o2m)
 	public Human2GamerDTO saveHuman2Gamer(Human2GamerDTO human2GamerDTO) {
