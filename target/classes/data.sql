@@ -37,6 +37,8 @@ INSERT INTO event (event_name, event_level, event_date, event_starttime, event_e
 values ('Games Workshop Tournament', 'All levels', 'Sat Sep 24th, 2025', '1pm ET', '6pm ET');
 INSERT INTO event (event_name, event_level, event_date, event_starttime, event_endtime)
 values ('Game Night at Barneys House!', 'Level 25 and up', 'Sun Sep 25th, 2025', '5pm CT', '11pm CT');
+INSERT INTO event (event_name, event_level, event_date, event_starttime, event_endtime)
+values ('Church Basement Bingo!', 'Fun', 'Sat Nov 7, 2025', '1pm ET', '5pm ET');
 
 INSERT INTO location (human_id, location_name, location_streetaddress, location_city, location_state, location_zip, location_phone, location_note)
 values (4, 'Games Workshop - Alpha City ', '1111 Alpha Drive', 'Alpha City', 'Alaska', '11111', '111-111-1111', 'THE BEST place to spend money...');
@@ -46,6 +48,9 @@ INSERT INTO location (human_id, location_name, location_streetaddress, location_
 values (2, 'Barneys House', '3333 Chuckles Drive', 'Covington', 'Connecticut', '33333', '333-333-3333', 'I provide the food, you bring the beer');
 INSERT INTO location (human_id, location_name, location_streetaddress, location_city, location_state, location_zip, location_phone, location_note)
 values (3, 'Bernies Place', '4444 Drivers Lane', 'Dusseldorf', 'Delaware', '44444', '444-444-4444', 'Just dont park on the grass');
+INSERT INTO location (human_id, location_name, location_streetaddress, location_city, location_state, location_zip, location_phone, location_note)
+values (1, 'United Methodist Church of Farmingham', '5555 Fortunate Avenue', 'Farmingham', 'Florida', '55555', '555-555-5555', 'Our basement is available for events! Email farm.fl@umc.org for info');
+
 
 INSERT INTO gamer_game (gamer_id, game_id) values (1,1);
 INSERT INTO gamer_game (gamer_id, game_id) values (1,2);
