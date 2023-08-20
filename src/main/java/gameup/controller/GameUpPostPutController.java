@@ -61,8 +61,6 @@ public class GameUpPostPutController {
 					+ " to Event " + event2LocationDTO.getEventId());
 		return gameupPostPutService.saveEvent2Location(event2LocationDTO);						}
 	
-
-	
 	//  @POST/@PUT Games ---------------------------------------------------------
 	
 	//  Add a game

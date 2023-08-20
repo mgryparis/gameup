@@ -1,11 +1,9 @@
 package gameup.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import gameup.controller.model.Event2GameDTO;
 import gameup.controller.model.Event2LocationDTO;
 import gameup.controller.model.EventDTO;
@@ -286,14 +284,19 @@ public class GameupPostPutService {
 		return new HumanDTO(savedHuman);				}
 	
 	//	Save a new Human-to-Location relationship ("POC for") to the location table (o2m)
+	@Transactional(readOnly = false)
 	public Human2LocationDTO saveHuman2Location(Human2LocationDTO human2LocationDTO) {
 		Long hmId = human2LocationDTO.getHumanId();
 		Long lcId = human2LocationDTO.getLocationId();
+//		System.out.println("_____>>>  Human ID passed to saveHumanToLocation: "+hmId);
+//		System.out.println("_____>>>  Location ID passed to saveHumanToLocation: "+lcId);
 
 		//  1 - Check to see if Human/Location IDs exist and Set CheckResult strings accordingly
 		//	If one or both does NOT exist > Abort
 		boolean humanExists = checkIfHumanIdExists(hmId);
 		boolean locationExists = checkIfLocationIdExists(lcId);
+//		System.out.println("_____>>>  Human Exists:  "+humanExists);
+//		System.out.println("_____>>>  Location Exists:  "+locationExists);
 		if(humanExists)	{	human2LocationDTO.setHumanCheckResult("Human " + hmId + " exists");	}
 		else	{	human2LocationDTO.setHumanCheckResult("Human " + hmId + " does not exist");	}
 		if(locationExists)	{	human2LocationDTO.setLocationCheckResult("Location " + lcId + " exists");	}
@@ -304,20 +307,45 @@ public class GameupPostPutService {
 		
 		//  3 -  If both exist, set the Human as the POC - This will overwrite any previous POC
 		human2LocationDTO.setGoNoGoResult("Executing operation");
-		Query qInsertRowInGamer2LocationTable = em.createNativeQuery(
-				"update location set human_id=? where location_id = ?");
-		qInsertRowInGamer2LocationTable.setParameter(1, hmId);
-		qInsertRowInGamer2LocationTable.setParameter(2, lcId);
-		qInsertRowInGamer2LocationTable.executeUpdate();
+//		System.out.println("_____>>>  Executing Operation");
+		Query qUpdateHumanPocInLocationRecord = em.createNativeQuery(
+				"update location set location.human_id=? where location.location_id = ?");
+		qUpdateHumanPocInLocationRecord.setParameter(1, hmId);
+		qUpdateHumanPocInLocationRecord.setParameter(2, lcId);
+		qUpdateHumanPocInLocationRecord.executeUpdate();
 		return human2LocationDTO;																}
 	
 	//	Save a new Human-to-Gamer relationship ("identity of") to the gamer table (o2m)
+	@Transactional(readOnly = false)
 	public Human2GamerDTO saveHuman2Gamer(Human2GamerDTO human2GamerDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Long hmId = human2GamerDTO.getHumanId();
+		Long grId = human2GamerDTO.getGamerId();
+//		System.out.println("_____>>>  Human ID passed to saveHumanToLocation: "+hmId);
+//		System.out.println("_____>>>  Gamer ID passed to saveHumanToLocation: "+grId);
 
-	
+		//  1 - Check to see if Human/Gamer IDs exist and Set CheckResult strings accordingly
+		//	If one or both does NOT exist > Abort
+		boolean humanExists = checkIfHumanIdExists(hmId);
+		boolean gamerExists = checkIfGamerIdExists(grId);
+//		System.out.println("_____>>>  Human Exists:  "+humanExists);
+//		System.out.println("_____>>>  Gamer Exists:  "+gamerExists);
+		if(humanExists)	{	human2GamerDTO.setHumanCheckResult("Human " + hmId + " exists");	}
+		else	{	human2GamerDTO.setHumanCheckResult("Human " + hmId + " does not exist");	}
+		if(gamerExists)	{	human2GamerDTO.setGamerCheckResult("Location " + grId + " exists");	}
+		else	{	human2GamerDTO.setGamerCheckResult("Location " + grId + " does not exist");	}
+		if(!humanExists || !gamerExists) {
+			human2GamerDTO.setGoNoGoResult("Aborting operation");
+			return human2GamerDTO;													}
+		
+		//  3 -  If both exist, set the Human as the Gamer's identity - This will overwrite any previous identity
+		human2GamerDTO.setGoNoGoResult("Executing operation");
+//		System.out.println("_____>>>  Executing Operation");
+		Query qUpdateHumanIdInGamerPersonaRecord = em.createNativeQuery(
+				"update gamer set gamer.human_id=? where gamer.gamer_id = ?");
+		qUpdateHumanIdInGamerPersonaRecord.setParameter(1, hmId);
+		qUpdateHumanIdInGamerPersonaRecord.setParameter(2, grId);
+		qUpdateHumanIdInGamerPersonaRecord.executeUpdate();
+		return human2GamerDTO;																}
 	
 //  ------------------------------------------------------------------------------------------
 //  ----- [  Re-used ID Check Methods ]-------------------------------------------------------
