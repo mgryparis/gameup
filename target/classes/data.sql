@@ -31,7 +31,9 @@ values ('Sorry', 'http://youwillbesorry.com', 'simple & brainless');
 INSERT INTO game (game_name, game_url, game_note)
 values ('Candyland', 'http://candylandsweetness.com', 'Simplicity itself');
 INSERT INTO game (game_name, game_url, game_note)
-values ('UrbanTerror', 'http://urbanterror.info', 'Simplicity itself');
+values ('UrbanTerror', 'http://urbanterror.info', 'Action packed');
+INSERT INTO game (game_name, game_url, game_note)
+values ('Chess', 'http://chess.org', 'The Classic Strategy Game');
 
 INSERT INTO event (event_name, event_level, event_date, event_starttime, event_endtime)
 values ('Games Workshop Tournament', 'All levels', 'Sat Sep 24th, 2025', '1pm ET', '6pm ET');
@@ -50,6 +52,8 @@ INSERT INTO location (human_id, location_name, location_streetaddress, location_
 values (3, 'Bernies Place', '4444 Drivers Lane', 'Dusseldorf', 'Delaware', '44444', '444-444-4444', 'Just dont park on the grass');
 INSERT INTO location (human_id, location_name, location_streetaddress, location_city, location_state, location_zip, location_phone, location_note)
 values (1, 'United Methodist Church of Farmingham', '5555 Fortunate Avenue', 'Farmingham', 'Florida', '55555', '555-555-5555', 'Our basement is available for events! Email farm.fl@umc.org for info');
+INSERT INTO location (human_id, location_name, location_streetaddress, location_city, location_state, location_zip, location_phone, location_note)
+values (5, 'Waterside Park', '9999 Waterside Boulevard', 'Wellingham', 'Washington', '99999', '999-999-9999', 'Gorgeous sunsets in the heart of Wellingham!');
 
 
 INSERT INTO gamer_game (gamer_id, game_id) values (1,1);

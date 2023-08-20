@@ -36,15 +36,4 @@ private Set<LocationDTO> locationsScheduledAt = new HashSet<>();
 		this.gamersRegisteredFor	= gamersRegisteredFor;
 		this.locationsScheduledAt	= locationsScheduledAt;			}
 
-//  Method on EventDTOFull that returns the corresponding Event Entity instance
-//	public Event toEvent()	{
-//		Event event = new Event();
-//		event.setEventId(eventId);
-//		event.setEventName(eventName);
-//		event.setEventLevel(eventLevel);
-//		event.setEventDate(eventDate);
-//		event.setEventStarttime(eventStarttime);
-//		event.setEventEndtime(eventEndtime);
-//		return event;														}
-
 }	//  End of EventDTOFull Class
